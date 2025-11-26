@@ -1,809 +1,802 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miguel Zurbano - Business Transformation & Operational Excellence</title>
+    <title>Miguel Zurbano - Product Ops & Digital Transformation Consultant</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         :root {
-            --primary: #10b981;
-            --primary-dark: #059669;
-            --primary-light: #34d399;
-            --dark: #0f172a;
-            --dark-gray: #1e293b;
-            --gray: #475569;
-            --light-gray: #f1f5f9;
-            --white: #ffffff;
+            --primary: #00f0ff;
+            --primary-glow: rgba(0, 240, 255, 0.3);
+            --secondary: #7c3aed;
+            --accent: #10b981;
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-elevated: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #2a2a2a;
         }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: var(--dark);
             overflow-x: hidden;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
         }
-
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border);
         }
-
         nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 20px;
+            padding: 1.5rem 2rem;
         }
-
         .logo {
+            font-family: 'Courier New', monospace;
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
+            letter-spacing: -1px;
         }
-
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
         }
-
         .nav-links a {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text-secondary);
             font-weight: 500;
+            font-size: 0.95rem;
             transition: color 0.3s;
+            position: relative;
         }
-
         .nav-links a:hover {
             color: var(--primary);
         }
-
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
         /* Hero Section */
         .hero {
             margin-top: 80px;
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-gray) 100%);
-            color: white;
             position: relative;
             overflow: hidden;
         }
-
         .hero::before {
             content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M100 20 Q80 40 70 60 Q60 80 65 100 Q70 120 80 140 Q90 160 100 180 L100 160 Q95 150 92 140 Q88 125 90 110 Q92 95 100 85 L100 20 M100 85 Q108 95 110 110 Q112 125 108 140 Q105 150 100 160 L100 180 Q110 160 120 140 Q130 120 135 100 Q140 80 130 60 Q120 40 100 20" fill="%2310b981" opacity="0.08"/><circle cx="100" cy="60" r="15" fill="%2310b981" opacity="0.05"/><circle cx="80" cy="80" r="12" fill="%2310b981" opacity="0.05"/><circle cx="120" cy="80" r="12" fill="%2310b981" opacity="0.05"/><circle cx="70" cy="100" r="10" fill="%2310b981" opacity="0.05"/><circle cx="130" cy="100" r="10" fill="%2310b981" opacity="0.05"/></svg>');
-            background-size: contain;
-            background-repeat: no-repeat;
-            top: 50%;
-            right: -100px;
-            transform: translateY(-50%);
-            opacity: 0.6;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            top: -400px;
+            right: -200px;
+            opacity: 0.3;
+            animation: pulse 8s ease-in-out infinite;
         }
-
-        .hero::after {
-            content: '';
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+        .grid-bg {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: var(--primary);
-            border-radius: 50%;
-            top: -250px;
-            right: -250px;
-            opacity: 0.05;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
         }
-
         .hero-content {
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+            align-items: center;
         }
-
-        .hero h1 {
-            font-size: 3.5rem;
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
             margin-bottom: 1rem;
-            line-height: 1.2;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .hero h2 {
-            font-size: 1.8rem;
-            color: var(--primary-light);
-            margin-bottom: 1.5rem;
-            font-weight: 400;
+        .hero-text .subtitle {
+            font-family: 'Courier New', monospace;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
         }
-
-        .hero p {
+        .hero-text .subtitle::before {
+            content: '> ';
+        }
+        .hero-text p {
             font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            color: #cbd5e1;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.8;
         }
-
+        .hero-photo {
+            position: relative;
+        }
+        .hero-photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            box-shadow: 0 0 40px var(--primary-glow);
+        }
+        .hero-photo::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 14px;
+            opacity: 0.3;
+            z-index: -1;
+            filter: blur(20px);
+        }
         .cta-buttons {
             display: flex;
             gap: 1rem;
-            flex-wrap: wrap;
         }
-
         .btn {
             padding: 1rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
+            border: none;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
             display: inline-block;
         }
-
         .btn-primary {
             background: var(--primary);
-            color: white;
+            color: var(--bg-dark);
         }
-
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: var(--text-primary);
+            box-shadow: 0 0 30px var(--primary-glow);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
         }
-
         .btn-secondary {
             background: transparent;
-            color: white;
-            border: 2px solid white;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
         }
-
         .btn-secondary:hover {
-            background: white;
-            color: var(--dark);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--dark);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--primary);
-            margin: 1rem auto 0;
-            border-radius: 2px;
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            color: var(--gray);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--light-gray);
-            border-radius: 10px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
+            border-color: var(--primary);
             color: var(--primary);
         }
-
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            position: relative;
         }
-
-        /* Services Section */
-        .services {
-            background: var(--light-gray);
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
         }
-
+        .section-title::before {
+            content: '//';
+            color: var(--primary);
+            margin-right: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+        /* Impact Metrics Dashboard */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .metric-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1);
+        }
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .metric-description {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 3rem;
         }
-
         .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
             transition: all 0.3s;
-            border-left: 4px solid var(--primary);
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            border-left-color: var(--primary-dark);
-        }
-
-        .service-card h3 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .service-card p {
-            color: var(--gray);
-        }
-
-        /* Experience Section */
-        .experience-item {
-            margin-bottom: 3rem;
-            padding-left: 2rem;
-            border-left: 3px solid var(--primary);
-        }
-
-        .experience-item ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .experience-item li {
-            margin-bottom: 0.5rem;
-            color: var(--gray);
-            padding-left: 1.5rem;
             position: relative;
         }
-
-        .experience-item li::before {
-            content: '→';
+        .service-card::after {
+            content: '';
             position: absolute;
-            left: 0;
-            color: var(--primary);
+            inset: 0;
+            border-radius: 12px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-
-        /* Skills Section */
-        .skills {
-            background: var(--light-gray);
+        .service-card:hover::after {
+            opacity: 1;
         }
-
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-elevated);
         }
-
-        .skill-category {
-            background: white;
-            padding: 2rem;
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .skill-category h3 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-tag {
-            display: inline-block;
-            background: var(--light-gray);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            margin: 0.3rem;
-            font-size: 0.9rem;
-            color: var(--dark);
-            transition: all 0.3s;
-        }
-
-        .skill-tag:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Industries Section */
-        .industries-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .industry-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .industry-card:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Contact Section */
-        .contact {
-            background: var(--dark);
-            color: white;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-info h3 {
-            color: var(--primary-light);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-item {
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .contact-item strong {
-            color: var(--primary-light);
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: rgba(255,255,255,0.6);
-        }
-
-        .contact-form button {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .contact-form button:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Footer */
-        footer {
-            background: #020617;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero h2 {
-                font-size: 1.5rem;
-            }
-
-            .about-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-        }
-    
-        /* ==== Hero layout with photo ==== */
-        .hero .container {
-            /* maintain existing container spacing */
-        }
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 420px 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-        .hero-photo {
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
         }
-        .hero-photo img {
-            width: 100%;
-            max-width: 380px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.35);
-            border: 4px solid rgba(255,255,255,0.1);
-            object-fit: cover;
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
-        /* Responsive: stack on small screens */
-        @media (max-width: 980px) {
-            .hero-grid {
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        /* Tech Stack */
+        .tech-stack {
+            background: var(--bg-elevated);
+        }
+        .tech-categories {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .tech-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        .tech-category h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-family: 'Courier New', monospace;
+        }
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .tech-tag {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .tech-tag:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 240, 255, 0.05);
+        }
+
+        /* Cultural Impact Section Styling */
+        .cultural-impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .cultural-impact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+            border-left: 3px solid var(--accent); /* Green accent for people/culture */
+        }
+        .cultural-impact-card:hover {
+            transform: translateY(-5px);
+            border-left-color: var(--primary);
+        }
+        .cultural-impact-card h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .cultural-impact-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a0a2e 100%);
+            border-top: 1px solid var(--border);
+        }
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+        .contact-item strong {
+            color: var(--primary);
+            min-width: 100px;
+        }
+        .contact-item a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-item a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        .contact-item span {
+            word-break: break-all;
+        }
+        .contact-cta {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+        }
+        .contact-cta h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .contact-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
             .hero-photo {
-                order: -1; /* photo first on mobile */
+                max-width: 300px;
+                margin: 0 auto;
             }
-            .hero-photo img {
-                max-width: 320px;
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
             }
         }
-
     </style>
 </head>
 <body>
     <nav>
         <div class="container">
-            <div class="logo">MZ</div>
+            <div class="logo">MZ_</div>
             <div class="nav-links">
-                <a href="#about">About</a>
+                <a href="#impact">Impact</a>
+                <a href="#cultural">Cultural</a>
                 <a href="#services">Services</a>
-                <a href="#experience">Experience</a>
+                <a href="#tech">Tech Stack</a>
                 <a href="#contact">Contact</a>
-            </div>
             </div>
         </div>
     </nav>
-
     <section class="hero">
+        <div class="grid-bg"></div>
         <div class="container">
-            <div class="hero-grid"><div class="hero-photo"><img src="profile.jpg" alt="Miguel Zurbano Sánchez portrait"></div><div class="hero-content">
-                <h1>Miguel Zurbano Sánchez</h1>
-                <h2>Business Transformation & Operational Excellence Leader</h2>
-                <p>
-                    I help startups and scale-ups drive digital transformation, implement AI-driven solutions, 
-                    and achieve operational excellence through data-backed strategies and proven methodologies.
-                </p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                    <a href="#services" class="btn btn-secondary">View Services</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="subtitle">PRODUCT OPS & TRANSFORMATION</div>
+                    <h1>Miguel Zurbano</h1>
+                    <p>
+                        I architect AI-driven product operations and lead digital transformations that bridge 
+                        technical architecture with measurable business value. Specialized in turning complex 
+                        systems into scalable, automated solutions.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Schedule Consultation</a>
+                        <a href="#services" class="btn btn-secondary">View Services</a>
+                    </div>
+                </div>
+                <div class="hero-photo">
+                    <!-- FIX: Using the contentFetchId path for guaranteed loading of the uploaded image -->
+                    <img src="uploaded:1764146248819~3.jpg-a75903ab-d44e-4fdc-a2cf-5388af2ca662" alt="Miguel Zurbano">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección Impact Metrics -->
+    <section id="impact">
+        <div class="container">
+            <h2 class="section-title">Impact Metrics</h2>
+            <p class="section-subtitle">
+                Data-driven transformation results from 8+ years leading product operations and AI implementation across global teams.
+            </p>
+                        <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">70%</div>
+                    <div class="metric-label">Cost Reduction</div>
+                    <div class="metric-description">Operational automation consolidating commerce & operations platforms</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">96%</div>
+                    <div class="metric-label">Precision Rate</div>
+                    <div class="metric-description">Fraud detection system with <0.01% dispute rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">75%</div>
+                    <div class="metric-label">Deflection Rate</div>
+                    <div class="metric-description">AI chatbot automating ~25 FTE workload equivalent</div>
+                </div>
+                <!-- FIX: Corregido el GMV a 6% -->
+                <div class="metric-card">
+                    <div class="metric-number">+6%</div>
+                    <div class="metric-label">Conversion Lift</div>
+                    <div class="metric-description">A/B testing framework driving 6% GMV increase</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about">
+    <!-- Nueva Sección Cultural Impact -->
+    <section id="cultural" class="tech-stack">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
-            
-            <div class="about-content">
-                <div class="about-text">
+            <h2 class="section-title">Cultural Impact</h2>
+            <p class="section-subtitle">
+                Building high-performing, engaged teams and leading organizational change with a focus on talent development and continuous improvement culture.
+            </p>
+            <div class="cultural-impact-grid">
+                <!-- Bloque 1: Team Attrition -->
+                <div class="cultural-impact-card">
+                    <h4>Talent Retention</h4>
                     <p>
-                        I'm an experienced leader specializing in business transformation, digitalization, and change management. 
-                        With a proven track record across global teams, I combine strategic vision with technical understanding 
-                        to lead AI-driven modernization programs and deliver scalable, data-backed improvements.
-                    </p>
-                    
-                    <p>
-                        Currently based in Copenhagen, I work with companies across tech, e-commerce, retail, agriculture, 
-                        and learning sectors, helping them navigate complex transformations and achieve sustainable growth.
+                        **0% Team Attrition** Leading teams of 14-25 professionals with zero turnover over several years, demonstrating sustained trust and high engagement.
                     </p>
                 </div>
-                
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number">70%</div>
-                        <div class="stat-label">Cost Reduction</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">75%</div>
-                        <div class="stat-label">Process Automation</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">0%</div>
-                        <div class="stat-label">Team Attrition</div>
-                    </div>
+                <!-- Bloque 2: eNPS/Engagement -->
+                <div class="cultural-impact-card">
+                    <h4>Engagement & Career Path</h4>
+                    <p>
+                        Achieved **Highest eNPS scores** within the organization by implementing structured career paths, dedicated mentoring, and continuous skill development programs.
+                    </p>
+                </div>
+                <!-- Bloque 3: Change Management -->
+                <div class="cultural-impact-card">
+                    <h4>Strategic Change Management</h4>
+                    <p>
+                        Successfully guided organizations through complex transformation cycles, ensuring high adoption rates and **minimizing resistance** by fostering transparent communication and stakeholder inclusion.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="services">
+    <!-- Sección Services (mantenida) -->
+    <section id="services">
         <div class="container">
-            <h2 class="section-title">Services</h2>
-            
-            <div class="services-grid">
+            <h2 class="section-title">Consulting Services</h2>
+            <p class="section-subtitle">
+                Strategic consulting focused on product operations, AI implementation, and business transformation for scale-ups and enterprise.
+            </p>
+                        <div class="services-grid">
                 <div class="service-card">
-                    <h3>Digital Transformation & AI Adoption</h3>
+                    <div class="service-icon">🤖</div>
+                    <h3>AI Product Strategy</h3>
                     <p>
-                        Lead company-wide digital transformation initiatives. Implement AI-driven automation, 
-                        analytics systems, and modern tech stacks to improve scalability and decision-making.
+                        End-to-end AI solution architecture from multi-agent systems to NLP pipelines. 
+                        RAG implementations, LLM integrations, and human-in-the-loop workflows that deliver 
+                        measurable ROI.
                     </p>
                 </div>
-
                 <div class="service-card">
-                    <h3>Operational Excellence</h3>
+                    <div class="service-icon">⚡</div>
+                    <h3>Intelligent Automation</h3>
                     <p>
-                        Optimize processes using Lean Six Sigma methodologies. Reduce costs, improve efficiency, 
-                        and establish continuous improvement cultures that deliver measurable results.
+                        Design and implement automated workflows combining GenAI with human oversight. 
+                        Reduce operational overhead by up to 70% while maintaining quality and compliance.
                     </p>
                 </div>
-
                 <div class="service-card">
-                    <h3>Change Management</h3>
+                    <div class="service-icon">🎯</div>
+                    <h3>Program Management</h3>
                     <p>
-                        Guide organizations through complex transformations. Design and implement change strategies 
-                        that ensure adoption, minimize resistance, and drive cultural evolution.
+                        Lead complex transformation programs across Product, Engineering, and Operations. 
+                        Coordinate cross-functional teams and deliver on-time, on-budget results.
                     </p>
                 </div>
-
                 <div class="service-card">
-                    <h3>Leadership Coaching & Mentoring</h3>
-                    <p>
-                        Develop leaders and teams to drive performance. Provide strategic guidance, 
-                        skills development, and personalized coaching for sustainable growth.
-                    </p>
-                </div>
-
-                <div class="service-card">
-                    <h3>Systems Implementation</h3>
-                    <p>
-                        Deploy and integrate enterprise systems (Salesforce, CRM, payment platforms). 
-                        Connect operations, finance, and commerce for seamless workflows.
-                    </p>
-                </div>
-
-                <div class="service-card">
+                    <div class="service-icon">📊</div>
                     <h3>Data-Driven Strategy</h3>
                     <p>
-                        Build analytics frameworks and experimentation programs. Turn data into actionable insights 
-                        that drive revenue growth and operational improvements.
+                        Transform raw data into actionable product strategies. Build A/B testing frameworks, 
+                        predictive models, and analytics infrastructure that drives growth.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔄</div>
+                    <h3>Digital Transformation</h3>
+                    <p>
+                        Architect unified digital systems connecting commerce, finance, and operations. 
+                        Cloud infrastructure, API ecosystems, and platform consolidation.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3>Operational Excellence</h3>
+                    <p>
+                        Lean Six Sigma methodologies combined with modern product operations. 
+                        Process optimization, continuous improvement culture, and KPI frameworks.
                     </p>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="experience">
+    
+    <!-- Sección Tech Stack (mantenida) -->
+    <section id="tech" class="tech-stack">
         <div class="container">
-            <h2 class="section-title">Key Achievements</h2>
-            
-            <div class="about-text" style="max-width: 900px; margin: 0 auto;">
-                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
-                    Over 7+ years leading digital transformation and operational excellence initiatives across global teams, 
-                    with a proven track record of delivering measurable business impact through AI adoption, process optimization, 
-                    and strategic change management.
-                </p>
-                
-                <div class="experience-item">
-                    <ul>
-                        <li>💡 Led large-scale transformation programs blending AI, automation & data strategy</li>
-                        <li>💰 Cut operational costs by 70% and boosted efficiency by 40%+</li>
-                        <li>📈 Increased transaction success above 96%, reduced fraud and disputes below 0.01%, and drove a 4% uplift in revenue</li>
-                        <li>🔄 Designed unified digital systems connecting commerce, finance & operations</li>
-                        <li>🤖 Automated workflows, deflecting 75% of repetitive tasks</li>
-                        <li>👥 Built high-performing teams with 0% attrition and strong engagement</li>
-                        <li>🌱 Fostered a continuous improvement culture — innovation through people and data</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Core Competencies & Tools</h2>
-            
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3>Strategic</h3>
-                    <div>
-                        <span class="skill-tag">Business Transformation</span>
-                        <span class="skill-tag">Digital Strategy</span>
-                        <span class="skill-tag">Growth & Scaling</span>
-                        <span class="skill-tag">IT Governance</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Operational</h3>
-                    <div>
-                        <span class="skill-tag">Process Optimization</span>
-                        <span class="skill-tag">Lean Six Sigma</span>
-                        <span class="skill-tag">Agile/SCRUM</span>
-                        <span class="skill-tag">Data Analysis</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Leadership</h3>
-                    <div>
-                        <span class="skill-tag">Change Management</span>
-                        <span class="skill-tag">Team Development</span>
-                        <span class="skill-tag">Executive Coaching</span>
-                        <span class="skill-tag">Cross-functional Leadership</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skills-container" style="margin-top: 2rem;">
-                <div class="skill-category" style="grid-column: 1 / -1;">
-                    <h3>AI & Systems</h3>
-                    <div>
-                        <span class="skill-tag">Vertex AI</span>
-                        <span class="skill-tag">GPT Agents</span>
-                        <span class="skill-tag">Gemini</span>
-                        <span class="skill-tag">Claude</span>
-                        <span class="skill-tag">Perplexity</span>
-                        <span class="skill-tag">Zapier</span>
-                        <span class="skill-tag">Salesforce</span>
-                        <span class="skill-tag">Stripe</span>
-                        <span class="skill-tag">Looker</span>
-                        <span class="skill-tag">Mixpanel</span>
-                        <span class="skill-tag">Firebase</span>
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Figma</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="industries">
-        <div class="container">
-            <h2 class="section-title">Partnership Sectors</h2>
-            
-            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: var(--gray);">
-                I collaborate with forward-thinking organizations across diverse industries, 
-                bringing expertise in transformation and operational excellence to drive sustainable growth.
+            <h2 class="section-title">Technical Capabilities</h2>
+            <p class="section-subtitle">
+                Hands-on expertise in modern AI/ML stacks, cloud infrastructure, and product analytics tools.
             </p>
-            
-            <div class="industries-grid">
-                <div class="industry-card">
-                    <h3>Startups & Scale-ups</h3>
+                        <div class="tech-categories">
+                <div class="tech-category">
+                    <h3>AI & GenAI Architecture</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Multi-Agent Systems (LangGraph)</span>
+                        <span class="tech-tag">RAG Pipelines</span>
+                        <span class="tech-tag">pgvector / ChromaDB</span>
+                        <span class="tech-tag">Ollama / Llama 3</span>
+                        <span class="tech-tag">Prompt Engineering</span>
+                        <span class="tech-tag">System Prompts & Guardrails</span>
+                        <span class="tech-tag">GPT-4 / Claude</span>
+                        <span class="tech-tag">Vertex AI</span>
+                    </div>
                 </div>
-                <div class="industry-card">
-                    <h3>E-commerce</h3>
+                <div class="tech-category">
+                    <h3>Cloud & Infrastructure</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Google Cloud Platform</span>
+                        <span class="tech-tag">Cloud Run</span>
+                        <span class="tech-tag">Cloud SQL</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">FastAPI / REST APIs</span>
+                        <span class="tech-tag">Serverless Architecture</span>
+                        <span class="tech-tag">Firebase</span>
+                    </div>
                 </div>
-                <div class="industry-card">
-                    <h3>Tech & SaaS</h3>
+                <div class="tech-category">
+                    <h3>Product & Data Analytics</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Python (Pandas)</span>
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Looker</span>
+                        <span class="tech-tag">Mixpanel</span>
+                        <span class="tech-tag">A/B Testing</span>
+                        <span class="tech-tag">KPI Definition</span>
+                        <span class="tech-tag">Precision/Recall Optimization</span>
+                    </div>
                 </div>
-                <div class="industry-card">
-                    <h3>Retail</h3>
-                </div>
-                <div class="industry-card">
-                    <h3>Agriculture</h3>
-                </div>
-                <div class="industry-card">
-                    <h3>Import/Export</h3>
-                </div>
-                <div class="industry-card">
-                    <h3>Learning & Education</h3>
-                </div>
-                <div class="industry-card">
-                    <h3>Mid-Market Companies</h3>
+                <div class="tech-category">
+                    <h3>Business Systems</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Salesforce (Service Cloud)</span>
+                        <span class="tech-tag">Stripe Payments</span>
+                        <span class="tech-tag">Zapier</span>
+                        <span class="tech-tag">Slack Integrations</span>
+                        <span class="tech-tag">Asana</span>
+                        <span class="tech-tag">Figma</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Sección Contacto (modificada) -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title" style="color: white;">Let's Work Together</h2>
-            
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Get in Touch</h3>
+                    <h3>Let's Build Something</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        Available for strategic consulting engagements, transformation programs, 
+                        and technical advisory roles.
+                    </p>
                     <div class="contact-item">
-                        <strong>Phone:</strong> +45 91 93 10 92
+                        <strong>Location:</strong>
+                        <span>Copenhagen, Denmark</span>
                     </div>
                     <div class="contact-item">
-                        <strong>LinkedIn:</strong> miguelzursan
+                        <strong>Phone:</strong>
+                        <span>+45 91 93 10 92</span>
                     </div>
                     <div class="contact-item">
-                        <strong>Location:</strong> Copenhagen, Denmark
+                        <strong>Email:</strong>
+                        <span>migzursan@gmail.com</span>
                     </div>
+                    <!-- FIX: Enlace de LinkedIn como hyperlink -->
+                    <div class="contact-item">
+                        <strong>LinkedIn:</strong>
+                        <a href="https://www.linkedin.com/in/miguelzursan" target="_blank">miguelzursan</a>
+                    </div>
+                    <!-- FIX: Eliminada la línea de GitHub -->
                 </div>
-                
-                <div class="contact-form">
-                    <h3>Send a Message</h3>
-                    <p style="margin-bottom: 1.5rem; color: #cbd5e1;">
-                        Ready to discuss your project? Click the button below to send me an email directly.
+                                <div class="contact-cta">
+                    <h3>Ready to Transform?</h3>
+                    <p>
+                        Schedule a consultation to discuss your product operations, 
+                        AI strategy, or transformation program.
                     </p>
-                    <button onclick="window.open('mailto:migzursan@gmail.com', '_self')" 
-                            class="btn btn-primary" 
-                            style="width: 100%; cursor: pointer; border: none;">
+                    <!-- FIX: El botón ahora usa un enlace mailto: directo para abrir la app de email -->
+                    <a href="mailto:migzursan@gmail.com" class="btn btn-primary" style="width: 100%; text-align: center;">
                         Send Email
-                    </button>
-                    <p style="margin-top: 1rem; color: #cbd5e1; font-size: 0.9rem;">
-                        Or copy my email: <strong style="color: var(--primary-light);">migzursan@gmail.com</strong>
-                    </p>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-
     <footer>
         <div class="container">
-            <p>&copy; 2025 Miguel Zurbano Sánchez. All rights reserved.</p>
+            <p>&copy; 2025 Miguel Zurbano Sánchez. Product Operations & Digital Transformation Consultant.</p>
         </div>
     </footer>
-
     <script>
-        // Smooth scroll for navigation links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                e.stopPropagation();
-                
-                const targetId = this.getAttribute('href').substring(1);
-                const target = document.getElementById(targetId);
-                
+                const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-                
-                return false;
             });
+        });
+        // Animate metric numbers on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.metric-card, .service-card, .cultural-impact-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
         });
     </script>
 </body>
