@@ -525,8 +525,10 @@
                     </div>
                 </div>
                 <div class="hero-photo">
-                    <!-- FIX: Using the contentFetchId path for guaranteed loading of the uploaded image -->
-                    <img src="uploaded:1764146248819~3.jpg-a75903ab-d44e-4fdc-a2cf-5388af2ca662" alt="Miguel Zurbano">
+                    <!-- CORRECCIÓN CLAVE PARA GITHUB: La fuente es ahora solo el nombre del archivo de imagen subido. -->
+                    <img src="1764146248819~3.jpg" 
+                         alt="Miguel Zurbano"
+                         onerror="this.onerror=null; this.src='https://placehold.co/300x400/1a1a1a/00f0ff?text=IMAGE+FAIL+RELOAD'; this.style.borderRadius='12px'; this.style.boxShadow='0 0 40px rgba(255, 0, 0, 0.4)';">
                 </div>
             </div>
         </div>
@@ -555,7 +557,6 @@
                     <div class="metric-label">Deflection Rate</div>
                     <div class="metric-description">AI chatbot automating ~25 FTE workload equivalent</div>
                 </div>
-                <!-- FIX: Corregido el GMV a 6% -->
                 <div class="metric-card">
                     <div class="metric-number">+6%</div>
                     <div class="metric-label">Conversion Lift</div>
